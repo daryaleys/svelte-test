@@ -14,8 +14,8 @@
     gsap.to(container, {
       scrollTrigger: {
         trigger: container,
-        start: "top top",
-        end: "bottom bottom",
+        start: "top bottom",
+        end: "bottom top",
         markers: true,
         onUpdate: () => {
           if (container) {
@@ -46,15 +46,17 @@
               if (containerBottom < 0) {
                 // блок достиг верха вьюпорта, но конец блока не виден - мы в середине - должны быть две маски сверху и снизу
                 maskBottomPosition =
-                  window.innerHeight - container.offsetHeight;
+                  innerHeight - offsetHeight + (scrollY - offsetTop);
               } else {
                 // видим нижнюю границу блока - видна только одна маска сверху
+                maskTopPosition = containerTop;
                 maskBottomPosition = 200;
               }
             } else {
               // видна только маска снизу, мы находимся выше блока
               maskTopPosition = -200;
-              maskBottomPosition = window.innerHeight - container.offsetHeight;
+              maskBottomPosition =
+                innerHeight - offsetHeight + (scrollY - offsetTop);
             }
 
             container.style.maskPosition = `center ${maskTopPosition.toString()}px, center ${maskBottomPosition.toString()}px`;
