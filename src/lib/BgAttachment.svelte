@@ -5,16 +5,12 @@
 
   import cat from "../assets/s1200.png?url";
 
-  let container: HTMLElement | null = null, fadeContainer: HTMLElement | null;
+  let container: HTMLElement | null, fadeContainer: HTMLElement | null;
 
   onMount(() => {
-    if (container) {
-      console.log(container);
-    }
-
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to(fadeContainer, {
-      scrollTrigger: {
+    if (container) {
+      ScrollTrigger.create({
         trigger: container,
         start: "top bottom",
         end: "bottom top",
@@ -59,8 +55,8 @@
             }
           }
         },
-      },
-    });
+      });
+    }
   });
 </script>
 
@@ -231,19 +227,18 @@
   .wrap {
     display: flex;
     position: relative;
-
-    
   }
 
   .text {
+    padding: 50px 0;
     mask-image:
-      linear-gradient(to bottom, transparent 0, #fff 200px, #fff 100%),
+      linear-gradient(to bottom, transparent 50px, #fff 200px, #fff 100%),
       // маска снизу
       linear-gradient(
           to bottom,
           #fff 0%,
           #fff calc(100% - 200px),
-          transparent 100%
+          transparent calc(100% - 50px)
         );
     mask-size: 100%, 100%;
     mask-repeat: no-repeat, no-repeat;
@@ -255,26 +250,10 @@
 
   .title {
     width: fit-content;
-    margin: 0 auto 30px;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255) 0%,
-      rgba(255, 255, 255) 34%,
-      rgba(0, 255, 255) 34%,
-      rgba(0, 0, 255) 100%
-    );
-    background-size: 300% 100%;
-    background-position: top left 100%;
+    margin: 30px auto;
+    background: linear-gradient(to right, red 0, purple 100%);
     background-clip: text;
-    background-attachment: fixed;
-
     color: transparent;
-    transition: background-position 0.3s ease-in-out;
-
-    &:hover {
-      cursor: pointer;
-      background-position: top left 100%;
-    }
   }
 
   img {
